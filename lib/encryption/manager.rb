@@ -10,7 +10,7 @@ module Encryption
       end
 
       def token_2_payload(token)
-        JWT.decode(token, signing_key, true).first.dig(PAYLOAD_KEY) if token
+        JWT.decode(token, signing_key, true).first[PAYLOAD_KEY] if token
       rescue JWT::ExpiredSignature, ActiveSupport::MessageEncryptor::InvalidMessage
         nil
       end

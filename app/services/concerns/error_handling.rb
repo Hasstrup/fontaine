@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # frozen_string_literal
 
 module ErrorHandling
@@ -9,7 +11,7 @@ module ErrorHandling
       ActiveRecord::StatementInvalid,
       BaseService::InvalidInputError,
       BaseService::ServiceError
-    ]
+    ].freeze
 
     def safely_execute(&block)
       run_checks! if should_run_checks?

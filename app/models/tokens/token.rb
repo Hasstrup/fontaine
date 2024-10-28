@@ -2,7 +2,7 @@
 
 module Tokens
   class Token < ApplicationRecord
-    self.table_name = "tokens"
+    self.table_name = 'tokens'
   end
 end
 

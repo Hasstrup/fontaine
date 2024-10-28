@@ -4,6 +4,6 @@ module Tokens
   class TokenBlueprint < Blueprinter::Base
     fields :token, :created_at
 
-    association :owner, blueprint: ->(owner) { owner.blueprint }, default: {}, name: :user
+    association :owner, blueprint: lambda(&:blueprint), default: {}, name: :user
   end
 end

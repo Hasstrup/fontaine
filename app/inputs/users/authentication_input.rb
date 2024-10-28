@@ -2,7 +2,7 @@
 
 module Users
   class AuthenticationInput < BaseInput
-    REQUIRED_KEYS = %i[email password]
+    REQUIRED_KEYS = %i[email password].freeze
     attributes(*REQUIRED_KEYS)
 
     def validate!

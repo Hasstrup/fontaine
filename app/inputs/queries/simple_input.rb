@@ -23,7 +23,7 @@ module Queries
     end
 
     def includes
-      params.dig(:includes)&.map(&:to_sym) & valid_includes
+      params[:includes]&.map(&:to_sym) & valid_includes
     end
 
     def context

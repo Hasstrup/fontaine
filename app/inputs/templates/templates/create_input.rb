@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Templates
-  module Invoices
+  module Templates
     class CreateInput < BaseInput
       REQUIRED_KEYS = %i[title file_name file_base64 user_id]
       attributes(*REQUIRED_KEYS)

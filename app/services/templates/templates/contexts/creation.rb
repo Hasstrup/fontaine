@@ -1,15 +1,18 @@
 # frozen_string_literal: true
 
 module Templates
-  module Invoices
+  module Templates
     module Contexts
       class Creation < BaseService
-        # performs_checks
-
+        # @param [Templates::Invoices::CreateInput] input
+        # @return [::Templates::Templates::Contexts::Creation]
         def initialize(input:)
           @input = input
+          @pages_instructions_map = {}
         end
 
+        # takes a file, converts to html
+        # @return [String] the html string content of the pdf
         def call
           safely_execute do
             after_extracting_pdf_instructions do
@@ -20,6 +23,23 @@ module Templates
 
         private
 
+        attr_reader :pages_instructions_map
+
+        def create_template!
+          ::Templates::Template.create!(
+            reference_file_name: input.file_name,
+            title: input.title,
+            html_content: template_html_content,
+            instructions: pages_instructions_map,
+            user_id: input.user_id
+          )
+        end
+
+        def template_html_content
+          @template_html_content ||=
+            PDFKit.new(File.open(file.path), format: :html).to_html
+        end
+
         def after_extracting_pdf_instructions
           reader.pages.each.with_index do |page, index|
             receiver = ::PDF::Reader::RegisterReceiver.new
@@ -29,19 +49,6 @@ module Templates
               receiver.callbacks[1..receiver.callbacks.length].to_s
           end
           yield
-        end
-
-        def pages_instructions_map
-          @pages_instructions_map ||= {}
-        end
-
-        def create_template!
-          ::Templates::Template.create!(
-            reference_file_name: input.file_name,
-            title: input.title,
-            instructions: pages_instructions_map,
-            user_id: input.user_id
-          )
         end
 
         def reader

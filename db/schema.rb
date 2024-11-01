@@ -17,13 +17,11 @@ ActiveRecord::Schema.define(version: 2024_10_29_150811) do
 
   create_table "templates_components", force: :cascade do |t|
     t.string "title", null: false
-    t.string "accessor"
+    t.string "key_tag"
+    t.string "key_type"
+    t.string "text_accessor"
     t.bigint "template_id"
-    t.boolean "summable", default: false
-    t.string "pdf_coordinates"
-    t.boolean "within_table", default: false
     t.jsonb "metadata"
-    t.jsonb "instructions"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["template_id"], name: "index_templates_components_on_template_id"
@@ -32,11 +30,11 @@ ActiveRecord::Schema.define(version: 2024_10_29_150811) do
   create_table "templates_templates", force: :cascade do |t|
     t.string "title", null: false
     t.bigint "user_id"
-    t.jsonb "instructions"
     t.string "reference_file_path"
     t.string "reference_file_name"
-    t.string "type"
     t.jsonb "metadata"
+    t.text "html_content"
+    t.jsonb "instructions"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_templates_templates_on_user_id"

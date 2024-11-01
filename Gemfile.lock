@@ -139,6 +139,7 @@ GEM
       hashery (~> 2.0)
       ruby-rc4
       ttfunk
+    pdfkit (0.8.7.3)
     pg (1.5.9)
     pry (0.14.2)
       coderay (~> 1.1)
@@ -201,6 +202,7 @@ GEM
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    wkhtmltopdf-binary (0.12.6.8)
     zeitwerk (2.7.1)
 
 PLATFORMS
@@ -219,7 +221,9 @@ DEPENDENCIES
   jwt
   listen (~> 3.3)
   mailtrap
+  nokogiri
   pdf-reader
+  pdfkit
   pg (~> 1.1)
   pry
   puma (~> 5.0)
@@ -227,6 +231,7 @@ DEPENDENCIES
   rails (~> 6.1.7, >= 6.1.7.8)
   spring
   tzinfo-data
+  wkhtmltopdf-binary
 
 RUBY VERSION
    ruby 3.2.1p31

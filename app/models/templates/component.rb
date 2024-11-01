@@ -12,17 +12,15 @@ end
 #
 # Table name: templates_components
 #
-#  id              :bigint           not null, primary key
-#  accessor        :string
-#  instructions    :jsonb
-#  metadata        :jsonb
-#  pdf_coordinates :string
-#  summable        :boolean          default(FALSE)
-#  title           :string           not null
-#  within_table    :boolean          default(FALSE)
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  template_id     :bigint
+#  id            :bigint           not null, primary key
+#  key_tag       :string
+#  key_type      :string
+#  metadata      :jsonb
+#  text_accessor :string
+#  title         :string           not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  template_id   :bigint
 #
 # Indexes
 #

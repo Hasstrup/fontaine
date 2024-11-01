@@ -10,12 +10,12 @@ end
 # Table name: templates_templates
 #
 #  id                  :bigint           not null, primary key
+#  html_content        :text
 #  instructions        :jsonb
 #  metadata            :jsonb
 #  reference_file_name :string
 #  reference_file_path :string
 #  title               :string           not null
-#  type                :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  user_id             :bigint

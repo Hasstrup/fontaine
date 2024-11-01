@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -12,22 +10,55 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_241_028_130_557) do
-  create_table 'tokens', force: :cascade do |t|
-    t.string 'token'
-    t.string 'type'
-    t.string 'owner_type'
-    t.integer 'owner_id'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
+ActiveRecord::Schema.define(version: 2024_10_29_150811) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "templates_components", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "accessor"
+    t.bigint "template_id"
+    t.boolean "summable", default: false
+    t.string "pdf_coordinates"
+    t.boolean "within_table", default: false
+    t.jsonb "metadata"
+    t.jsonb "instructions"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["template_id"], name: "index_templates_components_on_template_id"
   end
 
-  create_table 'users', force: :cascade do |t|
-    t.string 'first_name'
-    t.string 'last_name'
-    t.string 'email'
-    t.string 'password_digest'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
+  create_table "templates_templates", force: :cascade do |t|
+    t.string "title", null: false
+    t.bigint "user_id"
+    t.jsonb "instructions"
+    t.string "reference_file_path"
+    t.string "reference_file_name"
+    t.string "type"
+    t.jsonb "metadata"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_templates_templates_on_user_id"
   end
+
+  create_table "tokens", force: :cascade do |t|
+    t.string "token"
+    t.string "type"
+    t.string "owner_type"
+    t.integer "owner_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.string "password_digest"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  add_foreign_key "templates_components", "templates_templates", column: "template_id"
 end

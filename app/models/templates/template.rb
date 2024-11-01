@@ -1,0 +1,27 @@
+# frozen_string_literal: true
+
+module Templates
+  class Template < ApplicationRecord
+    self.table_name = 'templates_templates'
+  end
+end
+
+# == Schema Information
+#
+# Table name: templates_templates
+#
+#  id                  :bigint           not null, primary key
+#  instructions        :jsonb
+#  metadata            :jsonb
+#  reference_file_name :string
+#  reference_file_path :string
+#  title               :string           not null
+#  type                :string
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  user_id             :bigint
+#
+# Indexes
+#
+#  index_templates_templates_on_user_id  (user_id)
+#

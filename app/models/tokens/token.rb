@@ -10,7 +10,7 @@ end
 #
 # Table name: tokens
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  owner_type :string
 #  token      :string
 #  type       :string

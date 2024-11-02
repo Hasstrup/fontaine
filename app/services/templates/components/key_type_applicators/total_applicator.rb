@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Templates
-  module KeyTypeApplicators
-    module Invoices
+  module Components
+    module KeyTypeApplicators
       class TotalApplicator < ::Templates::KeyTypeApplicators::Base
         def apply!
           selector.content = computed_value if apply_changes?

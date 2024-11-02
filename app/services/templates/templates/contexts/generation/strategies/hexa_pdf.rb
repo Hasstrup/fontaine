@@ -21,6 +21,8 @@ module Templates
                 parsed_document = persist_doc!(parsed_template_instructions)
                 PDFKit.new(File.open(parsed_document.path), format: :html).to_html
               end
+            ensure
+              tempfile.close
             end
 
             private

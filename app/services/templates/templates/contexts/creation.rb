@@ -18,6 +18,8 @@ module Templates
             after_extracting_pdf_instructions do
               succeed(create_template!)
             end
+          ensure
+            file.close
           end
         end
 

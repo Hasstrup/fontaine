@@ -2,7 +2,7 @@
 
 module Templates
   module KeyTypeApplicators
-    module Invoices
+    module Components
       class DateApplicator < ::Templates::KeyTypeApplicators::Base
         DATE_GAP = 30.days
         # extracts the current value from the contained html

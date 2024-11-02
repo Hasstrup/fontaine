@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Templates
-  module KeyTypeApplicators
-    module Invoices
+  module Components
+    module KeyTypeApplicators
       class IssueDateApplicator < ::Templates::KeyTypeApplicators::DateApplicator
       end
     end

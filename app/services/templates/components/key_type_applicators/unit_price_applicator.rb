@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Templates
-  module KeyTypeApplicators
-    module Invoices
+  module Components
+    module KeyTypeApplicators
       class UnitPriceApplicator < ::Templates::KeyTypeApplicators::Base
         def apply!
           selector.content = current_value if apply_changes?

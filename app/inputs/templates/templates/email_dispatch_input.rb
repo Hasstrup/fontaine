@@ -3,7 +3,7 @@
 module Templates
   module Templates
     class EmailDispatchInput < BaseInput
-      REQUIRED_KEYS = %i(strategy user_id template_id)
+      REQUIRED_KEYS = %i[strategy user_id template_id]
       attributes(*REQUIRED_KEYS)
 
       def validate!

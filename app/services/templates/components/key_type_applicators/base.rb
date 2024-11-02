@@ -7,7 +7,7 @@ module Templates
         attr_reader :current_value
 
         def self.apply!(*args)
-          new(*args).apply
+          new(*args).apply!
         end
 
         # @param [Templates::Component] template_component
@@ -29,12 +29,16 @@ module Templates
         attr_reader :component, :document
 
         def selector
-          @selector ||= if key_tags.length > 1
+          @selector ||= if multiple_key_tags?
                           document.xpath("//#{key_tags.first}[contains(text(),
                           '#{text_accessor}')]/following-sibling::#{key_tags.first}//#{key_tags.last}")
                         else
                           document.xpath("//#{key_tags.first}[contains(text(), '#{text_accessor}')]/b")
                         end
+        end
+
+        def multiple_key_tags?
+          key_tags.length > 1
         end
 
         def component_for(key_type)

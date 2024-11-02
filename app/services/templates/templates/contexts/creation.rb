@@ -16,16 +16,10 @@ module Templates
         def call
           safely_execute do
             after_extracting_pdf_instructions do
-              succeed(::Templates::Template.create!(
-                        reference_file_name: input.file_name,
-                        title: input.title,
-                        html_content: template_html_content,
-                        instructions: pages_instructions_map,
-                        user_id: input.user_id
-                      ))
+              succeed(::Templates::Template.create!(**template_create_params))
             end
           ensure
-            file.close
+            tmpfile.close
           end
         end
 
@@ -33,9 +27,19 @@ module Templates
 
         attr_reader :pages_instructions_map
 
+        def template_create_params
+          {
+            reference_file_name: input.file_name,
+            title: input.title,
+            html_content: template_html_content,
+            instructions: pages_instructions_map,
+            user_id: input.user_id
+          }
+        end
+
         def template_html_content
           @template_html_content ||=
-            PDFKit.new(File.open(file.path), format: :html).to_html
+            PDFKit.new(File.open(tmpfile.path), format: :html).to_html
         end
 
         def after_extracting_pdf_instructions
@@ -53,8 +57,8 @@ module Templates
           @reader ||= ::PDF::Reader.new(file.path)
         end
 
-        def file
-          @file ||= begin
+        def tmpfile
+          @tmpfile ||= begin
             tmp = Tempfile.new(input.file_name)
             tmp.binmode
             tmp.write(Base64.decode64(input.file_base64))

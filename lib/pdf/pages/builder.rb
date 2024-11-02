@@ -5,6 +5,10 @@ module PDF
     class Builder
       include ::PDF::Pages::HexaDefinitions::Adapter
 
+      def self.build!(*args)
+        new(*args).build!
+      end
+
       # @param [HexaPDF::Object] page
       # @param [String] instructions
       # @return [PDF::InstructionParser]
@@ -19,7 +23,7 @@ module PDF
       #
       #
       # @return [HexaPDF::Object]
-      def parse!
+      def build!
         instructions.each do |instruction|
           send(instruction[:name], instruction, page)
         rescue NotImplementedError

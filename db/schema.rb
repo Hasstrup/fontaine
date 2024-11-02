@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2024_10_29_150811) do
 
   create_table "templates_components", force: :cascade do |t|
     t.string "title", null: false
-    t.string "key_tag"
+    t.string "key_tags", array: true
     t.string "key_type"
     t.string "text_accessor"
     t.bigint "template_id"

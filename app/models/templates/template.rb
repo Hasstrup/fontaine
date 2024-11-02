@@ -3,6 +3,9 @@
 module Templates
   class Template < ApplicationRecord
     self.table_name = 'templates_templates'
+
+    belongs_to :user
+    has_many :components, class_name: 'Templates::Component'
   end
 end
 

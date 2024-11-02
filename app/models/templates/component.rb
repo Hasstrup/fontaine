@@ -4,7 +4,18 @@ module Templates
   class Component < ApplicationRecord
     self.table_name = 'templates_components'
 
+    KEY_TYPE_APPLICATORS = {
+      invoices: %i[
+        issue_date
+        due_date
+        unit_price
+        total_hours
+        sub_total
+        total
+      ]
+    }
     belongs_to :template, class_name: 'Templates::Template'
+    validates :key_type, inclusion: { in: KEY_TYPE_APPLICATORS.values.flat }
   end
 end
 
@@ -13,7 +24,7 @@ end
 # Table name: templates_components
 #
 #  id            :bigint           not null, primary key
-#  key_tag       :string
+#  key_tags      :string           is an Array
 #  key_type      :string
 #  metadata      :jsonb
 #  text_accessor :string

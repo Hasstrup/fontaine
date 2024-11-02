@@ -3,7 +3,7 @@
 module Templates
   module Components
     class CreateInput < BaseInput
-      REQUIRED_KEYS = %i[key_tag key_type text_accessor template_id user_id]
+      REQUIRED_KEYS = %i[key_tags key_type text_accessor template_id user_id]
       attributes(:title, *REQUIRED_KEYS)
 
       def validate!
@@ -29,11 +29,12 @@ module Templates
 
       def validate_template_ownership!
         within_error_context do
-          return pipe_error(restricted_access_error) unless ::Templates::Template.exists?(
-            user_id:,
-            id: template_id
-          )
+          pipe_error(restricted_access_error) unless user_template_exists?
         end
+      end
+
+      def user_template_exists?
+        ::Templates::Template.exists?(user_id:, id: template_id)
       end
     end
   end

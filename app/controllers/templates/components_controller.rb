@@ -35,11 +35,11 @@ module Templates
 
     private
 
-    COMPONENT_PARAM_KEYS = %i[title key_tag key_type text_accessor template_id]
+    COMPONENT_PARAM_KEYS = %i[title key_type text_accessor template_id]
 
     def template_component_params
       @template_component_params ||=
-        params.require(:component).permit
+        params.require(:component).permit(*COMPONENT_PARAM_KEYS, key_tags: []).to_h
     end
   end
 end

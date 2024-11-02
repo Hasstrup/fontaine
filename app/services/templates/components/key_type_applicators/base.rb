@@ -22,7 +22,7 @@ module Templates
           raise NotImplementedError
         end
 
-        delegate(*%i[key_t ags text_accessor template], to: :component)
+        delegate(*%i[key_tags text_accessor template], to: :component)
 
         private
 

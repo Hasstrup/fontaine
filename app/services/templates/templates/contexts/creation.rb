@@ -16,7 +16,13 @@ module Templates
         def call
           safely_execute do
             after_extracting_pdf_instructions do
-              succeed(create_template!)
+              succeed(::Templates::Template.create!(
+                        reference_file_name: input.file_name,
+                        title: input.title,
+                        html_content: template_html_content,
+                        instructions: pages_instructions_map,
+                        user_id: input.user_id
+                      ))
             end
           ensure
             file.close
@@ -26,16 +32,6 @@ module Templates
         private
 
         attr_reader :pages_instructions_map
-
-        def create_template!
-          ::Templates::Template.create!(
-            reference_file_name: input.file_name,
-            title: input.title,
-            html_content: template_html_content,
-            instructions: pages_instructions_map,
-            user_id: input.user_id
-          )
-        end
 
         def template_html_content
           @template_html_content ||=

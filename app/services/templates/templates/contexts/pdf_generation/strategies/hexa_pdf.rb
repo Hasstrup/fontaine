@@ -3,7 +3,7 @@
 module Templates
   module Templates
     module Contexts
-      module Generation
+      module PdfGeneration
         module Strategies
           class HexaPdf < BaseService
             def self.generate_html_content(*args)
@@ -18,36 +18,24 @@ module Templates
             # @return [String]
             def generate_html_content
               safely_execute do
-                parsed_document = persist_doc!(parsed_template_instructions)
-                PDFKit.new(File.open(parsed_document.path), format: :html).to_html
+                tmpfile = Tempfile.new(template.reference_file_name)
+                parse_template_instructions(document).write(tempfile.path)
+                PDFKit.new(File.open(tmpfile.path), format: :html).to_html
+              ensure
+                tmpfile.close
               end
-            ensure
-              tempfile.close
             end
 
             private
 
             attr_reader :template
 
-            def parsed_template_instructions
+            def parse_template_instructions(document)
               template.instructions.each_value do |instructions|
                 page = document.pages.add
                 ::PDF::Pages::Builder.build!(page, instructions)
               end
               document
-            end
-
-            def persist_doc!(document)
-              document.write(tempfile.path)
-              tempfile
-            end
-
-            def tempfile
-              @tempfile ||= Tempfile.new(template.reference_file_name)
-            end
-
-            def document
-              @document ||= HexaPDF::Document.new
             end
           end
         end

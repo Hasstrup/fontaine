@@ -2,15 +2,16 @@
 
 module PDF
   module Pages
+    # The Builder class is responsible for constructing a PDF page by applying a series of instructions
+    # to a HexaPDF page object. It utilizes methods defined in the HexaDefinitions modules to process
+    # graphical and text elements.
     class Builder
       include ::PDF::Pages::HexaDefinitions::Adapter
 
-      def self.build!(*args)
-        new(*args).build!
-      end
-
-      # @param [HexaPDF::Object] page
-      # @param [String] instructions
+      # Constructs a new Builder instance and applies the instructions to the page.
+      #
+      # @param [HexaPDF::Object] page The HexaPDF page object to build upon.
+      # @param [String] instructions The instructions for building the page in a string format.
       # @return [PDF::InstructionParser]
       def initialize(page, instructions)
         @page = page
@@ -18,11 +19,9 @@ module PDF
         @instructions = eval(instructions)
       end
 
-      # loops through the instructions and tries to apply them using rules
-      # defined in definitions files
+      # Applies the instructions to the HexaPDF page by executing each defined instruction.
       #
-      #
-      # @return [HexaPDF::Object]
+      # @return [HexaPDF::Object] The modified HexaPDF page object.
       def build!
         instructions.each do |instruction|
           send(instruction[:name], instruction, page)

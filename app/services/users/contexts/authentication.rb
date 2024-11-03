@@ -17,9 +17,7 @@ module Users
 
       def call
         safely_execute do
-          return fail!(error: invalid_credentials_error) unless user.authenticate(input.password)
-
-          succeed(token)
+          user.authenticate(input.password) ? succeed(token) : fail!(error: invalid_credentials_error)
         end
       end
 

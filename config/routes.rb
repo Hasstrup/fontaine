@@ -8,4 +8,13 @@ Rails.application.routes.draw do
       post :authenticate
     end
   end
+
+  namespace :templates do
+    resources :components, only: %i[index show create]
+    resources :templates, only: %i(create show) do
+      collection do
+        post :dispatch_mail
+      end
+    end
+  end
 end

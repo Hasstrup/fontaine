@@ -7,6 +7,7 @@
 #
 # @see Templates::Invoices::CreateInput for the expected input structure.
 class Templates::Templates::Contexts::Creation < BaseService
+  performs_checks
   # Initializes a new Creation service instance.
   #
   # @param [Templates::Invoices::CreateInput] input The input data containing file details and other attributes.
@@ -46,12 +47,15 @@ class Templates::Templates::Contexts::Creation < BaseService
     }
   end
 
-  # Converts the PDF content to HTML.
+  # Converts the PDF content to HTML using MuPDF.
   #
   # @return [String] The converted HTML content of the PDF.
   def template_html_content
-    @template_html_content ||=
-      PDFKit.new(File.open(tmpfile.path), format: :html).to_html
+    output_file = "#{File.basename(tmpfile.path, '.pdf')}.html"
+    system("mutool convert -o #{output_file} #{tmpfile.path}")
+    File.read(output_file)
+  ensure
+    File.delete(output_file)
   end
 
   # Extracts instructions from the PDF pages and yields to the block.
@@ -72,7 +76,7 @@ class Templates::Templates::Contexts::Creation < BaseService
   #
   # @return [PDF::Reader] The PDF reader instance.
   def reader
-    @reader ||= ::PDF::Reader.new(file.path)
+    @reader ||= ::PDF::Reader.new(tmpfile.path)
   end
 
   # Creates a temporary file to hold the decoded PDF content.

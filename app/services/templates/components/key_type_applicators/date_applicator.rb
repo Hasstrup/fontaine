@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module Templates
-  module KeyTypeApplicators
-    module Components
-      class DateApplicator < ::Templates::KeyTypeApplicators::Base
+  module Components
+    module KeyTypeApplicators
+      class DateApplicator < ::Templates::Components::KeyTypeApplicators::Base
         DATE_GAP = 30.days
         # extracts the current value from the contained html
         # tries to compute the next value, and update the html value

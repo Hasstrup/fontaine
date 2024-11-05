@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# spec/models/base_input_spec.rb
-
 require 'rails_helper'
 
 RSpec.describe BaseInput do

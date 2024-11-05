@@ -1,22 +1,20 @@
 # frozen_string_literal: true
 
-module Templates
-  class Component < ApplicationRecord
-    self.table_name = 'templates_components'
+class Templates::Component < ApplicationRecord
+  self.table_name = 'templates_components'
 
-    KEY_TYPE_APPLICATORS = {
-      invoices: %i[
-        issue_date
-        due_date
-        unit_price
-        total_hours
-        sub_total
-        total
-      ]
-    }
-    belongs_to :template, class_name: 'Templates::Template'
-    validates :key_type, inclusion: { in: KEY_TYPE_APPLICATORS.values.flat }
-  end
+  KEY_TYPE_APPLICATORS = {
+    invoices: %i[
+      issue_date
+      due_date
+      unit_price
+      total_hours
+      sub_total
+      total
+    ]
+  }
+  belongs_to :template, class_name: 'Templates::Template'
+  validates :key_type, inclusion: { in: KEY_TYPE_APPLICATORS.values.flatten.map(&:to_s) }
 end
 
 # == Schema Information

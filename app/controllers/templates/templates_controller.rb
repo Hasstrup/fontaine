@@ -12,14 +12,14 @@ class Templates::TemplatesController < ApplicationController
 
   def show
     context = Templates::Templates::Contexts::Fetch.call(params: query_template_params, type: :single)
-    return error_response(context) unless context.success?
+    return error_response(context.message) unless context.success?
 
     render json: Templates::TemplateBlueprint.render(context.payload), status: :ok
   end
 
   def dispatch_mail
     context = ::Templates::Templates::Contexts::EmailDispatch.call(input: email_dispatch_input)
-    return error_response(context.messge) unless context.success?
+    return error_response(context.message) unless context.success?
 
     render json: ::Templates::TemplateBlueprint.render(context.payload), status: :created
   end

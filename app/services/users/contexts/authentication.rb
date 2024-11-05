@@ -51,7 +51,7 @@ class Users::Contexts::Authentication < BaseService
   def authentication_token
     @authentication_token ||= Tokens::AuthenticationToken.create!(
       owner: user,
-      token: Encryption::TokenManager.payload_2_token({ id: user.id }) # really basic payload
+      token: Encryption::TokenManager.payload_2_token(data: { id: user.id }) # really basic payload
     )
   end
 

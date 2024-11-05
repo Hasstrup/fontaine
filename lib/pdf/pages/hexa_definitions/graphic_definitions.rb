@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# DEPRECATED
-module PDF
+module Pdf
   module Pages
     module HexaDefinitions
       module GraphicDefinitions
@@ -148,11 +147,6 @@ module PDF
         def set_clipping_path_with_even_odd(_, page)
           page.canvas.clip_path(nonzero: false)
         end
-
-        alias_method(*%i[
-                       append_curved_segment_initial_point_replicated
-                       append_curved_segment_final_point_replicated
-                     ], :append_currved_segment)
       end
     end
   end

@@ -1,15 +1,9 @@
 # frozen_string_literal: true
 
-module Templates
-  module Components
-    module Contexts
-      class Templates::Components::Contexts::Fetch < BaseService
-        include Queries::Engine
+class Templates::Components::Contexts::Fetch < BaseService
+  include Queries::Engine
 
-        private
+  private
 
-        def klass = ::Templates::Component
-      end
-    end
-  end
+  def klass = ::Templates::Component
 end

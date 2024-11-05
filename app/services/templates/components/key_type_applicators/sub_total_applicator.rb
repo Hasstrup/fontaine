@@ -3,7 +3,7 @@
 module Templates
   module Components
     module KeyTypeApplicators
-      class SubTotalHoursApplicator < TotalApplicator
+      class SubTotalApplicator < TotalApplicator
       end
     end
   end

@@ -5,21 +5,21 @@ class Templates::ComponentsController < ApplicationController
 
   def create
     ctx = ::Templates::Components::Contexts::Creation.call(input: component_create_input)
-    return error_response(ctx.messge) unless ctx.success?
+    return error_response(ctx.message) unless ctx.success?
 
     render json: ::Templates::ComponentBlueprint.render(ctx.payload), status: :created
   end
 
   def show
     context = Templates::Components::Contexts::Fetch.call(params: component_query_params, type: :single)
-    return error_response(context) unless context.success?
+    return error_response(context.message) unless context.success?
 
     render json: Templates::ComponentBlueprint.render(context.payload), status: :ok
   end
 
   def index
     context = Templates::Components::Contexts::Fetch.call(params: component_query_params)
-    return error_response(context) unless context.success?
+    return error_response(context.message) unless context.success?
 
     render json: Templates::ComponentBlueprint.render(context.payload), status: :ok
   end

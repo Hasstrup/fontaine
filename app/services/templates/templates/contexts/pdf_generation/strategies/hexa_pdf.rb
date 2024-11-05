@@ -45,7 +45,7 @@ module Templates::Templates::Contexts::PdfGeneration::Strategies
     def parse_template_instructions(document)
       template.instructions.each_value do |instructions|
         page = document.pages.add
-        ::PDF::Pages::Builder.build!(page, instructions)
+        ::Pdf::Pages::Builder.build!(page, instructions)
       end
       document
     end

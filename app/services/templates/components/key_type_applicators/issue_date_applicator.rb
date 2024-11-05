@@ -3,7 +3,7 @@
 module Templates
   module Components
     module KeyTypeApplicators
-      class IssueDateApplicator < ::Templates::KeyTypeApplicators::DateApplicator
+      class IssueDateApplicator < ::Templates::Components::KeyTypeApplicators::DateApplicator
       end
     end
   end

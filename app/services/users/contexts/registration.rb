@@ -33,7 +33,7 @@ class Users::Contexts::Registration < BaseService
   def authentication_token
     @authentication_token ||= Tokens::AuthenticationToken.create!(
       owner: user,
-      token: Encryption::TokenManager.payload_2_token({ id: user.id }) # Generates a token using the user's ID.
+      token: Encryption::TokenManager.payload_2_token(data: { id: user.id }) # Generates a token using the user's ID.
     )
   end
 

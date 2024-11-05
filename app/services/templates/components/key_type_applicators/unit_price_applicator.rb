@@ -3,7 +3,7 @@
 module Templates
   module Components
     module KeyTypeApplicators
-      class UnitPriceApplicator < ::Templates::KeyTypeApplicators::Base
+      class UnitPriceApplicator < ::Templates::Components::KeyTypeApplicators::Base
         def apply!
           selector.content = current_value if apply_changes?
           document

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-module PDF
+module Pdf
   module Pages
     module HexaDefinitions
-      module TextDefinitions 
+      module TextDefinitions
         def set_text_font_and_size(instruction, page)
           font_name, size = instruction[:args]
           font = doc.fonts.add(font_name.to_s)

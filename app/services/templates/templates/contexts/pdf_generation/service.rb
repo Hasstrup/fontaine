@@ -13,7 +13,7 @@ class Templates::Templates::Contexts::PdfGeneration::Service < BaseService
   # @param [*args] args Arguments to be passed to the Engine initializer.
   # @return [String] The generated PDF content as a string.
   def self.call(*args)
-    new(*args).run
+    new(*args).call
   end
 
   # Initializes a new instance of the Engine.
@@ -35,7 +35,7 @@ class Templates::Templates::Contexts::PdfGeneration::Service < BaseService
         key_type_applicator_for(component).apply!(component, document)
       end
       PDFKit.new(modified_document.to_html).to_file(tmpfile.path)
-      succeed(tmpfile.read)
+      succeed(tmpfile)
     ensure
       tmpfile.close
     end
@@ -57,7 +57,7 @@ class Templates::Templates::Contexts::PdfGeneration::Service < BaseService
   # @param [Object] component The component for which to find the applicator.
   # @return [Object] The applicator class for the component's key type.
   def key_type_applicator_for(component)
-    "::Templates::Components::KeyTypeApplicator::#{component.key_type.to_s.camelize}Applicator".constantize
+    "::Templates::Components::KeyTypeApplicators::#{component.key_type.to_s.camelize}Applicator".constantize
   end
 
   # Creates a temporary file for storing the generated PDF.

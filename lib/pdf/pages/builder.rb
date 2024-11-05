@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-module PDF
+module Pdf
   module Pages
     # The Builder class is responsible for constructing a PDF page by applying a series of instructions
     # to a HexaPDF page object. It utilizes methods defined in the HexaDefinitions modules to process
     # graphical and text elements.
     class Builder
-      include ::PDF::Pages::HexaDefinitions::Adapter
+      include ::Pdf::Pages::HexaDefinitions::Adapter
 
       # Constructs a new Builder instance and applies the instructions to the page.
       #

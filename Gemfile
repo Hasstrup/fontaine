@@ -34,6 +34,8 @@ gem 'hexapdf'
 gem 'pdfkit'
 gem 'wkhtmltopdf-binary'
 gem 'nokogiri'
+gem 'docsplit'
+gem 'rails-erd'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'

@@ -11,7 +11,7 @@ class Templates::Templates::Contexts::EmailDispatch < BaseService
   #
   # @param [Object] input The input data required for the email dispatch.
   # @return [void]
-  def initialize(input)
+  def initialize(input:)
     @input = input
   end
 
@@ -20,11 +20,14 @@ class Templates::Templates::Contexts::EmailDispatch < BaseService
   # @return [Integer, nil] The ID of the template if successful; nil otherwise.
   def call
     safely_execute do
-      pdf_generation_ctx = PdfGeneration::Service.call(template_id, input.strategy.to_sym)
+      pdf_generation_ctx =
+        ::Templates::Templates::Contexts::PdfGeneration::Service.call(
+          input.template_id, input.strategy.to_sym
+        )
       return fail!(pdf_generation_ctx.errors) unless pdf_generation_ctx.success?
 
-      ::Mailer::PdfMailer.pdf_generated(mailer_input_from_ctx(pdf_generation_ctx))
-      succeed(template_id)
+      PdfMailer.pdf_generated(mailer_input_from_ctx(pdf_generation_ctx)).deliver_now
+      succeed(::Templates::Template.find(input.template_id))
     end
   end
 

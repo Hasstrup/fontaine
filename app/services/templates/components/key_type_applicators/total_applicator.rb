@@ -3,7 +3,7 @@
 module Templates
   module Components
     module KeyTypeApplicators
-      class TotalApplicator < ::Templates::KeyTypeApplicators::Base
+      class TotalApplicator < ::Templates::Components::KeyTypeApplicators::Base
         def apply!
           selector.content = computed_value if apply_changes?
           document

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module PDF
+module Pdf
   module Pages
     module HexaDefinitions
       module Adapter

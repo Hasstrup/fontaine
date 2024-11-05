@@ -3,7 +3,7 @@
 module Templates
   module Components
     module KeyTypeApplicators
-      class TotalHoursApplicator < ::Templates::KeyTypeApplicators::Base
+      class TotalHoursApplicator < ::Templates::Components::KeyTypeApplicators::Base
         def apply!
           selector.content = current_value if apply_changes?
           document

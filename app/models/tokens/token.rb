@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
-module Tokens
-  class Token < ApplicationRecord
-    self.table_name = 'tokens'
+class Tokens::Token < ApplicationRecord
+  self.table_name = 'tokens'
+
+  belongs_to :owner, polymorphic: true
+
+  def blueprint
+    ::Tokens::TokenBlueprint
   end
 end
 

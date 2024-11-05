@@ -31,7 +31,7 @@ module ErrorHandling
     #
     # @raise [NotImplementedError] When not implemented in a subclass.
     def run_checks!
-      raise NotImplementedError
+      raise BaseService::InvalidInputError, input.errors.flat_map(&:message) unless input.valid?
     end
   end
 
@@ -60,13 +60,6 @@ module ErrorHandling
     def self.included(base)
       base.include(Core)
       base.extend(ClassMethods)
-    end
-
-    # Validates the input and raises an error if invalid.
-    #
-    # @raise [BaseService::InvalidInputError] If the input is invalid.
-    def run_checks!
-      raise BaseService::InvalidInputError, input.errors.flat_map(&:message) unless input.valid?
     end
 
     # Raises a service error with the specified message.

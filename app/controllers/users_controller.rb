@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 
   def show
     context = ::Users::Contexts::Fetch.call(params: query_users_params, type: :single)
-    return error_response(context) unless context.success?
+    return error_response(context.message) unless context.success?
 
     render json: UserBlueprint.render(context.payload), status: :ok
   end
@@ -37,11 +37,11 @@ class UsersController < ApplicationController
   end
 
   def authentication_params
-    @authentication_params ||= params.require(:user).permit(:email, :password)
+    @authentication_params ||= params.require(:user).permit(:email, :password).to_h
   end
 
   def registration_params
     @registration_params ||=
-      params.require(:user).permit(*%i[email first_name last_name email password])
+      params.require(:user).permit(*%i[email first_name last_name email password]).to_h
   end
 end

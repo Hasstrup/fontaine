@@ -2,6 +2,10 @@
 
 class User < ApplicationRecord
   has_secure_password
+
+  def blueprint
+    UserBlueprint
+  end
 end
 
 # == Schema Information

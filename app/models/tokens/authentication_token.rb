@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-module Tokens
-  class AuthenticationToken < Tokens::Token
-  end
+class Tokens::AuthenticationToken < Tokens::Token
 end
 
 # == Schema Information

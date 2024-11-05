@@ -8,9 +8,7 @@ module Templates
 
         private
 
-        def klass
-          ::Templates::Template
-        end
+        def klass = ::Templates::Template
       end
     end
   end

@@ -1,0 +1,41 @@
+# frozen_string_literal: true
+
+class Templates::Component < ApplicationRecord
+  self.table_name = 'templates_components'
+
+  KEY_TYPE_APPLICATORS = {
+    invoices: %i[
+      issue_date
+      due_date
+      unit_price
+      total_hours
+      sub_total
+      total
+    ]
+  }
+  belongs_to :template, class_name: 'Templates::Template'
+  validates :key_type, inclusion: { in: KEY_TYPE_APPLICATORS.values.flatten.map(&:to_s) }
+end
+
+# == Schema Information
+#
+# Table name: templates_components
+#
+#  id            :bigint           not null, primary key
+#  key_tags      :string           is an Array
+#  key_type      :string
+#  metadata      :jsonb
+#  text_accessor :string
+#  title         :string           not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  template_id   :bigint
+#
+# Indexes
+#
+#  index_templates_components_on_template_id  (template_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (template_id => templates_templates.id)
+#
